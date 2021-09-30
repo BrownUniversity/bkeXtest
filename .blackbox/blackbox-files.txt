@@ -1,3 +1,4 @@
+files/bkpd.yaml
 files/bkpddr.yaml
 files/robot.dr
 files/robot.prod
