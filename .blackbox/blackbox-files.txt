@@ -1,3 +1,4 @@
+files/bkpddr.yaml
 files/robot.dr
 files/robot.prod
 files/robot.qa
