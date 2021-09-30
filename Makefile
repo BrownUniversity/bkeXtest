@@ -15,21 +15,21 @@ $(SECRET_FILES): %: %.gpg
 
 #build: @ Build bkextest image
 build: 
-	docker -t harbor.services.brown.edu/bkextest/bkextest -t harbor.cis-qas.brown.edu/bkextest/bkextest -t harbordr.services.brown.edu/bkextest/bkextest
+	docker build -t harbor.services.brown.edu/bkextest/bkextest -t harbor.cis-qas.brown.edu/bkextest/bkextest -t harbordr.services.brown.edu/bkextest/bkextest ./
 
 ## Docker Logins
 
 #dlogin.qa: @ qa docker login
 dlogin.qa: files/robot.qa
-	cat files/robot.qa | docker login -u 'bke-bkextest+bkextest' --password-stdin
+	cat files/robot.qa | docker login -u 'bke-bkextest+bkextest' --password-stdin harbor.cis-qas.brown.edu
 
 #dlogin.prod: @ prod docker login
 dlogin.prod: files/robot.prod
-	cat files/robot.prod | docker login -u 'bke-bkextest+bkextest' --password-stdin
+	cat files/robot.prod | docker login -u 'bke-bkextest+bkextest' --password-stdin harbor.services.brown.edu
 
 #dlogin.dr: @ dr docker login
 dlogin.dr: files/robot.dr
-	cat files/robot.dr | docker login -u 'bke-bkextest+bkextest' --password-stdin
+	cat files/robot.dr | docker login -u 'bke-bkextest+bkextest' --password-stdin harbordr.services.brown.edu
 
 
 ## Harbor push
