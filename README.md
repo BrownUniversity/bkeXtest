@@ -11,11 +11,11 @@ dead simple nginx app that serves from a file from the NFS storage
 ## Info
 
 Domains:
-* bkpeitest.virtorch.brown.edu - PROD INT
-* bkpedtest.virtorch.brown.edu - PROD DMZ
-* drbkpeitest.virtorch.brown.edu - DR INT
-* drbkpedtest.virtorch.brown.edu - DR DMZ
-* qbkpeitest.virtorch.brown.edu - QA INT
-* qbkpedtest.virtorch.brown.edu - QA DMZ
+* bkeitest.virtorch.brown.edu - PROD INT
+* bkedtest.virtorch.brown.edu - PROD DMZ
+* drbkeitest.virtorch.brown.edu - DR INT
+* drbkedtest.virtorch.brown.edu - DR DMZ
+* qbkeitest.virtorch.brown.edu - QA INT
+* qbkedtest.virtorch.brown.edu - QA DMZ
 
 ## Makefile
