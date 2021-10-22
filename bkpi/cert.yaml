@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: bkeitest-vo
+  namespace: cert-manager
+spec:
+  secretName: bkeitest-tls
+  issuerRef:
+    name: bke-ci-eab
+    kind: ClusterIssuer
+  commonName: bkeitest.virtorch.brown.edu
+  dnsNames:
+  - bkeitest.virtorch.brown.edu

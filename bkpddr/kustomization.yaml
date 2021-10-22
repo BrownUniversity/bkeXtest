@@ -3,3 +3,5 @@ bases:
 patchesStrategicMerge:
 - deployment.yaml
 - ingress.yaml
+resources:
+- cert.yaml
