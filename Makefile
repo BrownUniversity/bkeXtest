@@ -89,27 +89,27 @@ deploy: deploy.qa-bkpd  deploy.qa-bkpi deploy.bkpd deploy.bkpi deploy.bkpddr dep
 
 #delete.qa-bkpd: @ qa-bkpd delete
 delete.qa-bkpd: files/qa-bkpd.yaml
-	kubectl delete -k ./qa-bkpd --kubeconfig=files/qa-bkpd.yaml
+	-kubectl delete -k ./qa-bkpd --kubeconfig=files/qa-bkpd.yaml
 
 #delete.qa-bkpi: @ qa-bkpi delete
 delete.qa-bkpi: files/qa-bkpi.yaml
-	kubectl delete -k ./qa-bkpi --kubeconfig=files/qa-bkpi.yaml
+	-kubectl delete -k ./qa-bkpi --kubeconfig=files/qa-bkpi.yaml
 
 #delete.bkpd: @ bkpd delete
 delete.bkpd: files/bkpd.yaml
-	kubectl delete -k ./bkpd --kubeconfig=files/bkpd.yaml
+	-kubectl delete -k ./bkpd --kubeconfig=files/bkpd.yaml
 
 #delete.bkpi: @ bkpi delete
 delete.bkpi: files/bkpi.yaml
-	kubectl delete -k ./bkpi --kubeconfig=files/bkpi.yaml
+	-kubectl delete -k ./bkpi --kubeconfig=files/bkpi.yaml
 
 #delete.bkpddr: @ bkpddr delete
 delete.bkpddr: files/bkpddr.yaml
-	kubectl delete -k ./bkpddr --kubeconfig=files/bkpddr.yaml
+	-kubectl delete -k ./bkpddr --kubeconfig=files/bkpddr.yaml
 
 #delete.bkpidr: @ bkpidr delete
 delete.bkpidr: files/bkpidr.yaml
-	kubectl delete -k ./bkpidr --kubeconfig=files/bkpidr.yaml
+	-kubectl delete -k ./bkpidr --kubeconfig=files/bkpidr.yaml
 
 #delete: @ delete bkeXtest app to all clusters
 delete: delete.qa-bkpd  delete.qa-bkpi delete.bkpd delete.bkpi delete.bkpddr delete.bkpidr
@@ -117,4 +117,4 @@ delete: delete.qa-bkpd  delete.qa-bkpi delete.bkpd delete.bkpi delete.bkpddr del
 ## Tests
 #test: @ simple curl test of URLs
 test: 
-	$(foreach serv, $(SERVS), echo -n "$(serv): "; curl http://$(serv).virtorch.brown.edu; echo ""; )
+	@$(foreach serv, $(SERVS), echo -n "$(serv): "; curl https://$(serv).virtorch.brown.edu; echo ""; )
