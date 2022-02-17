@@ -12,7 +12,17 @@ SECRET_FILES=$(shell cat .blackbox/blackbox-files.txt)
 $(SECRET_FILES): %: %.gpg
 	gpg --decrypt --quiet --no-tty --yes $< > $@
 
-.PHONY: $(SECRET_FILES)
+.PHONY: build dlogin.qa dlogin.prod dlogin.dr \
+	push.qa push.prod push.dr \
+	deploy.qa-bkpd deploy.qa-bkpi \
+	deploy.bkpd deploy.bkpi \
+	deploy.bkpddr deploy.bkpidr \
+	delete.qa-bkpd delete.qa-bkpi \
+	delete.bkpd delete.bkpi \
+	delete.bkpddr delete.bkpidr \
+	test report
+
+decrypt: files/bkpidr.yaml
 
 #build: @ Build bkextest image
 build: 
@@ -31,7 +41,6 @@ dlogin.prod: files/robot.prod
 #dlogin.dr: @ dr docker login
 dlogin.dr: files/robot.dr
 	cat files/robot.dr | docker login -u 'bke-bkextest+bkextest' --password-stdin harbordr.services.brown.edu
-
 
 ## Harbor push
 
@@ -117,4 +126,8 @@ delete: delete.qa-bkpd  delete.qa-bkpi delete.bkpd delete.bkpi delete.bkpddr del
 ## Tests
 #test: @ simple curl test of URLs
 test: 
-	@$(foreach serv, $(SERVS), echo -n "$(serv): "; curl https://$(serv).virtorch.brown.edu; echo ""; )
+	@$(foreach serv, $(SERVS), echo -n "$(serv): "; curl -m 3 https://$(serv).virtorch.brown.edu; echo ""; )
+
+#report: @ report on all clusters
+report: files/qa-bkpi.yaml files/qa-bkpd.yaml files/bkpi.yaml files/bkpd.yaml files/bkpidr.yaml files/bkpddr.yaml
+	@$(foreach file, $(SECRET_FILES), kubectl get nodes | grep READY | wc -l ; )
