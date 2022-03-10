@@ -19,6 +19,13 @@ spec:
         volumeMounts:
           - name: bkextest
             mountPath: /usr/share/nginx/html
+        resources:
+          requests:
+            cpu: 100m
+            memory: "128M"
+          limits:
+            cpu: 100m
+            memory: "256M"
       containers:
       - name: bkextest
         image: harbor.cis-qas.brown.edu/bkextest/bkextest:latest
@@ -28,6 +35,13 @@ spec:
         volumeMounts:
         - name: bkextest
           mountPath: /usr/share/nginx/html
+        resources:
+          requests:
+            cpu: 100m
+            memory: "128M"
+          limits:
+            cpu: 100m
+            memory: "256M"
       volumes:
       - name: bkextest
         persistentVolumeClaim:
