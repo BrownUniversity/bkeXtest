@@ -130,4 +130,4 @@ test:
 
 #report: @ report on all clusters
 report: files/qa-bkpi.yaml files/qa-bkpd.yaml files/bkpi.yaml files/bkpd.yaml files/bkpidr.yaml files/bkpddr.yaml
-	$(foreach file, $(CLUSTERS), kubectl get nodes --kubeconfig=files/$(file).yaml| grep Ready | wc -l ; )
+	@$(foreach file, $(CLUSTERS), kubectl get nodes --kubeconfig=files/$(file).yaml| grep Ready | wc -l ; )
