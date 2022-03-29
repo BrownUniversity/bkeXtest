@@ -32,7 +32,7 @@ a new set of instances.
 # make delete
 # make build
 # make push
-# make build
+# make deploy
 # make test
 ```
 ## Cleanup
