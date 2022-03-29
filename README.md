@@ -2,6 +2,12 @@
 
 dead simple nginx app that serves from a file from the NFS storage
 
+## Prerequisites
+[git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+[kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+[blackbox](https://github.com/StackExchange/blackbox)
+[docker](https://docs.docker.com/install/)
+
 ## Info
 
 This app tests Ingress, NFS and basic K8S api service. These are sufficient to
@@ -19,9 +25,17 @@ Domains:
 
 Use the default "make" target to see what commands can be run. 
 
-```make test```
+This set of commands will delete and existing deploy then build, push, and deploy
+a new set of instances.
 
-This will test each URL and report if it works.
+```
+# make delete
+# make build
+# make push
+# make build
+# make test
+```
+## Cleanup
 
-Make will also deploy or delete as needed to test setup functions.
-
+This app creates a new NFS PV each time is deploys. Due to the NFS provisioner's
+config old PVs might need to be deleted manually.
