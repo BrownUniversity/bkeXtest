@@ -1,0 +1,29 @@
+name: Full build and deploy of bkeXtest services
+on:
+  push:
+    branches:
+      main
+jobs:
+  Building and Deploying bkeXtest:
+    runs-on: self-hosted
+      steps:
+        -
+          name: Checkout
+          uses: actions/checkout@v2
+        -
+          name: Import GPG key
+          uses: crazy-max/ghaction-import-gpg@v4
+          with:
+            gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+        -
+          name: Build
+          run: make build
+        -
+          name: Push
+          run: make push
+        -
+          name: Delete
+          run: make delete
+        -
+          name: Deploy
+          run: make deploy
