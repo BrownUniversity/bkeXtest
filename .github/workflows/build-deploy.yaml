@@ -4,7 +4,7 @@ on:
     branches:
       main
 jobs:
-  Building and Deploying bkeXtest:
+  Building_and_Deploying_bkeXtest:
     runs-on: self-hosted
     steps:
       -
