@@ -129,14 +129,14 @@ delete.bkpddr: files/bkpddr.yaml
 delete.bkpidr: files/bkpidr.yaml
 	-kubectl delete -k ./bkpidr --kubeconfig=files/bkpidr.yaml
 
-#delete-prod: @ Delete PROD
-delete-prod: delete.bkpd delete.bkpi
+#delete.prod: @ Delete PROD
+delete.prod: delete.bkpd delete.bkpi
 
-#delete-dr: @ Delete DR
-delete-dr: delete.bkpddr delete.bkpidr
+#delete.dr: @ Delete DR
+delete.dr: delete.bkpddr delete.bkpidr
 
-#delete-qa: @ Delete QA
-delete-qa: delete.qa-bkpd delete.qa-bkpi
+#delete.qa: @ Delete QA
+delete.qa: delete.qa-bkpd delete.qa-bkpi
 
 #delete: @ delete bkeXtest app to all clusters
 delete: delete.qa-bkpd  delete.qa-bkpi delete.bkpd delete.bkpi delete.bkpddr delete.bkpidr
