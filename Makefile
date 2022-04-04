@@ -91,6 +91,15 @@ deploy.bkpidr: files/bkpidr.yaml
 	kubectl apply -k ./bkpidr --kubeconfig=files/bkpidr.yaml
 	echo "drbkeitest.virtorch.brown.edu"
 
+#deploy-prod: @ Deploy to PROD
+deploy-prod: deploy.bkpd deploy.bkpi
+
+#deploy-dr: @ Deploy to DR
+deploy-dr: deploy.bkpddr deploy.bkpidr
+
+#deploy-qa: @ Deploy to QA
+deploy-qa: deploy.qa-bkpd  deploy.qa-bkpi
+
 #deploy: @ deploy bkeXtest app to all clusters
 deploy: deploy.qa-bkpd  deploy.qa-bkpi deploy.bkpd deploy.bkpi deploy.bkpddr deploy.bkpidr
 
@@ -119,6 +128,15 @@ delete.bkpddr: files/bkpddr.yaml
 #delete.bkpidr: @ bkpidr delete
 delete.bkpidr: files/bkpidr.yaml
 	-kubectl delete -k ./bkpidr --kubeconfig=files/bkpidr.yaml
+
+#delete-prod: @ Delete PROD
+delete-prod: delete.bkpd delete.bkpi
+
+#delete-dr: @ Delete DR
+delete-dr: delete.bkpddr delete.bkpidr
+
+#delete-qa: @ Delete QA
+delete-qa: delete.qa-bkpd delete.qa-bkpi
 
 #delete: @ delete bkeXtest app to all clusters
 delete: delete.qa-bkpd  delete.qa-bkpi delete.bkpd delete.bkpi delete.bkpddr delete.bkpidr
