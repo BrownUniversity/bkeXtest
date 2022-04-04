@@ -25,10 +25,10 @@ jobs:
         run: make build
       -
         name: Push
-        run: make push-dr
+        run: make push.dr
       -
         name: Delete
-        run: make delete-dr
+        run: make delete.dr
       -
         name: Deploy
-        run: make deploy-dr
+        run: make deploy.dr
