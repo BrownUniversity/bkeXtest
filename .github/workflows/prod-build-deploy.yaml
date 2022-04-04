@@ -25,10 +25,10 @@ jobs:
         run: make build
       -
         name: Push
-        run: make push-prod
+        run: make push.prod
       -
         name: Delete
-        run: make delete-prod
+        run: make delete.prod
       -
         name: Deploy
-        run: make deploy-prod
+        run: make deploy.prod

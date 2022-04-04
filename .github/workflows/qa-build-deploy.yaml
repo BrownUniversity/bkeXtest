@@ -26,10 +26,10 @@ jobs:
         run: make build
       -
         name: Push
-        run: make push-qa
+        run: make push.qa
       -
         name: Delete
-        run: make delete-qa
+        run: make delete.qa
       -
         name: Deploy
-        run: make deploy-qa
+        run: make deploy.qa
