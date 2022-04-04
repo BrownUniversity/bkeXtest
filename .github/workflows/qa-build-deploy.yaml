@@ -1,8 +1,9 @@
-name: Full build and deploy of bkeXtest services
+name: QA build and deploy of bkeXtest services
 on:
   push:
     branches:
-      main
+      dev
+    
 jobs:
   Building_and_Deploying_bkeXtest:
     runs-on: self-hosted
@@ -25,10 +26,10 @@ jobs:
         run: make build
       -
         name: Push
-        run: make push
+        run: make push.qa
       -
         name: Delete
-        run: make delete
+        run: make delete.qa
       -
         name: Deploy
-        run: make deploy
+        run: make deploy.qa
