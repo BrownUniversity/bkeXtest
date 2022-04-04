@@ -91,14 +91,14 @@ deploy.bkpidr: files/bkpidr.yaml
 	kubectl apply -k ./bkpidr --kubeconfig=files/bkpidr.yaml
 	echo "drbkeitest.virtorch.brown.edu"
 
-#deploy-prod: @ Deploy to PROD
-deploy-prod: deploy.bkpd deploy.bkpi
+#deploy.prod: @ Deploy to PROD
+deploy.prod: deploy.bkpd deploy.bkpi
 
-#deploy-dr: @ Deploy to DR
-deploy-dr: deploy.bkpddr deploy.bkpidr
+#deploy.dr: @ Deploy to DR
+deploy.dr: deploy.bkpddr deploy.bkpidr
 
-#deploy-qa: @ Deploy to QA
-deploy-qa: deploy.qa-bkpd  deploy.qa-bkpi
+#deploy.qa: @ Deploy to QA
+deploy.qa: deploy.qa-bkpd  deploy.qa-bkpi
 
 #deploy: @ deploy bkeXtest app to all clusters
 deploy: deploy.qa-bkpd  deploy.qa-bkpi deploy.bkpd deploy.bkpi deploy.bkpddr deploy.bkpidr
