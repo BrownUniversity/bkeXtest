@@ -15,7 +15,7 @@ spec:
       initContainers:
       - name: volume-mount-hack
         image: busybox
-        command: ["sh", "-c", "cp /tmp/index.html /usr/share/nginx/html/index.html"]
+        command: ["sh", "-c", "echo ok > /usr/share/nginx/html/index.html"]
         volumeMounts:
           - name: bkextest
             mountPath: /usr/share/nginx/html
