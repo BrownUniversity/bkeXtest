@@ -3,10 +3,10 @@
 dead simple nginx app that serves from a file from the NFS storage
 
 ## Prerequisites
-[git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-[kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-[blackbox](https://github.com/StackExchange/blackbox)
-[docker](https://docs.docker.com/install/)
+* [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+* [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+* [blackbox](https://github.com/StackExchange/blackbox)
+* [docker](https://docs.docker.com/install/)
 
 ## Info
 
