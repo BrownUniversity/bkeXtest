@@ -61,6 +61,11 @@ push: push.qa push.prod push.dr
 
 ## Deploys
 
+#deploy.dev-bkpi: @ dev-bkpi deploy
+deploy.qa-bkpi: files/dev-bkpi.yaml
+	kubectl apply -k ./dev-bkpi --kubeconfig=files/dev-bkpi.yaml
+	echo "dbkeitest.virtorch.brown.edu"
+
 #deploy.qa-bkpd: @ qa-bkpd deploy
 deploy.qa-bkpd: files/qa-bkpd.yaml
 	kubectl apply -k ./qa-bkpd --kubeconfig=files/qa-bkpd.yaml
@@ -100,10 +105,17 @@ deploy.dr: deploy.bkpddr deploy.bkpidr
 #deploy.qa: @ Deploy to QA
 deploy.qa: deploy.qa-bkpd  deploy.qa-bkpi
 
+#deploy.dev: @ Deploy to DEV
+deploy.dev: deploy.dev-bkpi
+
 #deploy: @ deploy bkeXtest app to all clusters
-deploy: deploy.qa-bkpd  deploy.qa-bkpi deploy.bkpd deploy.bkpi deploy.bkpddr deploy.bkpidr
+deploy: deploy.dev-bkpi deploy.qa-bkpd  deploy.qa-bkpi deploy.bkpd deploy.bkpi deploy.bkpddr deploy.bkpidr 
 
 ## Deletes
+
+#delete.dev-bkpi: @ dev-bkpi delete
+delete.qa-bkpi: files/dev-bkpi.yaml
+	-kubectl delete -k ./dev-bkpi --kubeconfig=files/dev-bkpi.yaml
 
 #delete.qa-bkpd: @ qa-bkpd delete
 delete.qa-bkpd: files/qa-bkpd.yaml
