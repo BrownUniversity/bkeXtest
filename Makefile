@@ -17,6 +17,7 @@ $(SECRET_FILES): %: %.gpg
 	deploy.qa-bkpd deploy.qa-bkpi \
 	deploy.bkpd deploy.bkpi \
 	deploy.bkpddr deploy.bkpidr \
+	deploy.dev-bkpi \
 	delete.qa-bkpd delete.qa-bkpi \
 	delete.bkpd delete.bkpi \
 	delete.bkpddr delete.bkpidr \
@@ -62,7 +63,7 @@ push: push.qa push.prod push.dr
 ## Deploys
 
 #deploy.dev-bkpi: @ dev-bkpi deploy
-deploy.qa-bkpi: files/dev-bkpi.yaml
+deploy.dev-bkpi: files/dev-bkpi.yaml
 	kubectl apply -k ./dev-bkpi --kubeconfig=files/dev-bkpi.yaml
 	echo "dbkeitest.virtorch.brown.edu"
 
@@ -114,7 +115,7 @@ deploy: deploy.dev-bkpi deploy.qa-bkpd  deploy.qa-bkpi deploy.bkpd deploy.bkpi d
 ## Deletes
 
 #delete.dev-bkpi: @ dev-bkpi delete
-delete.qa-bkpi: files/dev-bkpi.yaml
+delete.dev-bkpi: files/dev-bkpi.yaml
 	-kubectl delete -k ./dev-bkpi --kubeconfig=files/dev-bkpi.yaml
 
 #delete.qa-bkpd: @ qa-bkpd delete
