@@ -20,6 +20,8 @@ Domains:
 * drbkedtest.virtorch.brown.edu - DR DMZ
 * qbkeitest.virtorch.brown.edu - QA INT
 * qbkedtest.virtorch.brown.edu - QA DMZ
+* dbkeitest.virtorch.brown.edu - DEV INT
+* dbkedtest.virtorch.brown.edu - DEV DMZ
 
 ## Makefile
 
