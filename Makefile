@@ -161,6 +161,9 @@ delete.dr: delete.bkpddr delete.bkpidr
 #delete.qa: @ Delete QA
 delete.qa: delete.qa-bkpd delete.qa-bkpi
 
+#delete.dev: @ Delete DEV
+delete.dev: delete.dev-bkpd delete.dev-bkpi
+
 #delete: @ delete bkeXtest app to all clusters
 delete: delete.dev-bkpi delete.dev-bkpd delete.qa-bkpd delete.qa-bkpi delete.bkpd delete.bkpi delete.bkpddr delete.bkpidr
 
