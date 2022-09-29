@@ -2,7 +2,7 @@ name: QA build and deploy of bkeXtest services
 on:
   push:
     branches:
-      dev
+      qa
     
 jobs:
   Building_and_Deploying_bkeXtest:
