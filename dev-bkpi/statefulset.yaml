@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: bkextest
 spec:
@@ -13,4 +13,4 @@ spec:
     spec:
       containers:
       - name: bkextest
-        image: harbordr.services.brown.edu/bkextest/bkextest:latest
+        image: harbor.cis-qas.brown.edu/bkextest/bkextest:latest

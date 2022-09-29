@@ -1,6 +1,5 @@
 namespace: bkextest
 resources:
-- storage.yaml
-- deployment.yaml
+- statefulset.yaml
 - service.yaml
 - ingress.yaml
