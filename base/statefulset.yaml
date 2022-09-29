@@ -1,11 +1,12 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: bkextest
 spec:
   selector:
     matchLabels:
       app: bkextest
+  serviceName: bkextest
   replicas: 1
   template:
     metadata:
@@ -42,9 +43,15 @@ spec:
           limits:
             cpu: 100m
             memory: "256M"
-      volumes:
-      - name: bkextest
-        persistentVolumeClaim:
-          claimName: bkextest
       nodeSelector:
         node-role.kubernetes.io/worker: "true"
+  volumeClaimTemplates:
+  - metadata:
+      name: bkextest
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: oitvo-nfs
+      resources:
+        requests:
+          storage: 1Gi
+
