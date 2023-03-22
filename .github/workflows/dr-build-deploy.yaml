@@ -5,7 +5,7 @@ on:
     
 jobs:
   Building_and_Deploying_bkeXtest:
-    runs-on: self-hosted
+    runs-on: [self-hosted, ghrunner]
     steps:
       -
         name: Checkout
