@@ -20,7 +20,7 @@ jobs:
         name: Get kubectl
         uses: azure/setup-kubectl@v3
         with:
-          version: v1.20.0
+          version: v1.22.0
       -
         name: Build
         run: make build
