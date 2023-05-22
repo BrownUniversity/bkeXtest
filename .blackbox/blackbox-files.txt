@@ -6,6 +6,7 @@ files/dev-bkpd.yaml
 files/dev-bkpi.yaml
 files/qa-bkpd.yaml
 files/qa-bkpi.yaml
+files/robot.dev
 files/robot.dr
 files/robot.prod
 files/robot.qa

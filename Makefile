@@ -28,9 +28,13 @@ decrypt: files/bkpidr.yaml
 
 #build: @ Build bkextest image
 build: 
-	docker build -t harbor.services.brown.edu/bkextest/bkextest -t harbor.cis-qas.brown.edu/bkextest/bkextest -t harbordr.services.brown.edu/bkextest/bkextest ./
+	docker build -t harbor.services.brown.edu/bkextest/bkextest -t harbor.cis-qas.brown.edu/bkextest/bkextest -t harbordr.services.brown.edu/bkextest/bkextest -t harbor.cis-dev.brown.edu/bkextest/bkextest ./
 
 ## Docker Logins
+
+#dlogin.dev: @ dev docker login
+dlogin.dev: files/robot.dev
+	cat files/robot.dev | docker login -u 'bke-bkextest+bkextest' --password-stdin harbor.cis-dev.brown.edu
 
 #dlogin.qa: @ qa docker login
 dlogin.qa: files/robot.qa
@@ -45,6 +49,10 @@ dlogin.dr: files/robot.dr
 	cat files/robot.dr | docker login -u 'bke-bkextest+bkextest' --password-stdin harbordr.services.brown.edu
 
 ## Harbor push
+
+#push.dev: @ Push to DEV harbor
+push.dev: dlogin.dev
+	docker push harbor.cis-dev.brown.edu/bkextest/bkextest
 
 #push.qa: @ Push to QA harbor
 push.qa: dlogin.qa
