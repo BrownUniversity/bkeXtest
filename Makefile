@@ -34,7 +34,7 @@ build:
 
 #dlogin.dev: @ dev docker login
 dlogin.dev: files/robot.dev
-	cat files/robot.dev | | docker login -u 'bke-bkextest+bkextest' --password-stdin harbor.cis-dev.brown.edu
+	cat files/robot.dev | docker login -u 'bke-bkextest+bkextest' --password-stdin harbor.cis-dev.brown.edu
 
 #dlogin.qa: @ qa docker login
 dlogin.qa: files/robot.qa
