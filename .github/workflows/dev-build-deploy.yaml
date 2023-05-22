@@ -22,6 +22,12 @@ jobs:
         with:
           version: v1.22.0
       -
+        name: Build
+        run: make build
+      -
+        name: Push
+        run: make push.dev
+      -
         name: Delete
         run: make delete.dev
       -
