@@ -7,11 +7,6 @@ help:
 CLUSTERS ?= qa-bkpd qa-bkpi bkpd bkpi bkpddr bkpidr dev-bkpi dev-bkpd
 SERVS ?= bkeitest bkedtest drbkeitest drbkedtest qbkeitest qbkedtest dbkeitest dbkedtest
 
-#secrets: @ Files to decrypt
-SECRET_FILES=$(shell cat .blackbox/blackbox-files.txt)
-$(SECRET_FILES): %: %.gpg
-	gpg --decrypt --quiet --no-tty --yes $< > $@
-
 .PHONY: build dlogin.qa dlogin.prod dlogin.dr \
 	push.qa push.prod push.dr \
 	deploy.qa-bkpd deploy.qa-bkpi \
@@ -24,8 +19,6 @@ $(SECRET_FILES): %: %.gpg
 	delete.dev-bkpi delete.dev-bkpd \
 	test report
 
-decrypt: files/bkpidr.yaml
-
 #build: @ Build bkextest image
 build: 
 	docker build -t harbor.services.brown.edu/bkextest/bkextest -t harbor.cis-qas.brown.edu/bkextest/bkextest -t harbordr.services.brown.edu/bkextest/bkextest -t harbor.cis-dev.brown.edu/bkextest/bkextest ./
@@ -33,7 +26,7 @@ build:
 ## Docker Logins
 
 #dlogin.dev: @ dev docker login
-dlogin.dev: files/robot.dev
+dlogin.dev:
 	cat files/robot.dev | docker login -u 'bke-bkextest+bkextest' --password-stdin harbor.cis-dev.brown.edu
 
 #dlogin.qa: @ qa docker login
@@ -72,12 +65,12 @@ push: push.qa push.prod push.dr
 ## Deploys
 
 #deploy.dev-bkpi: @ dev-bkpi deploy
-deploy.dev-bkpi: files/dev-bkpi.yaml
+deploy.dev-bkpi: 
 	kubectl apply -k ./dev-bkpi --kubeconfig=files/dev-bkpi.yaml
 	echo "dbkeitest.virtorch.brown.edu"
 
 #deploy.dev-bkpd: @ dev-bkpd deploy
-deploy.dev-bkpd: files/dev-bkpd.yaml
+deploy.dev-bkpd: 
 	kubectl apply -k ./dev-bkpd --kubeconfig=files/dev-bkpd.yaml
 	echo "dbkedtest.virtorch.brown.edu"
 
@@ -129,11 +122,11 @@ deploy: deploy.dev-bkpi deploy.dev-bkpd deploy.qa-bkpd  deploy.qa-bkpi deploy.bk
 ## Deletes
 
 #delete.dev-bkpi: @ dev-bkpi delete
-delete.dev-bkpi: files/dev-bkpi.yaml
+delete.dev-bkpi: 
 	-kubectl delete -k ./dev-bkpi --kubeconfig=files/dev-bkpi.yaml
 
 #delete.dev-bkpd: @ dev-bkpd delete
-delete.dev-bkpd: files/dev-bkpd.yaml
+delete.dev-bkpd: 
 	-kubectl delete -k ./dev-bkpd --kubeconfig=files/dev-bkpd.yaml
 
 #delete.qa-bkpd: @ qa-bkpd delete

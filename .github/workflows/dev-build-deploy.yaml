@@ -3,6 +3,10 @@ on:
   push:
     branches:
       dev
+env:
+  DBKPI_KUBECONF: ${{ secrets.DBKPI_KUBECONF }}
+  DBKPD_KUBECONF: ${{ secrets.DBKPD_KUBECONF }}
+  ROBOT_DEV: ${{ secrets.ROBOT_DEV }}
     
 jobs:
   Delete_and_Deploy_bkeXtest:
@@ -21,6 +25,15 @@ jobs:
         uses: azure/setup-kubectl@v3
         with:
           version: v1.22.0
+      -
+        name: pull kubeconfig
+        run: |
+          touch files/dev-bkpi.yaml
+          touch files/dev-bkpd.yaml
+          touch files/robot.dev
+          echo $DBKPI_KUBECONF >> files/dev-bkpi.yaml
+          echo $DBKPD_KUBECONF >> files/dev-bkpd.yaml
+          echo $ROBOT_DEV >> files/robot.dev
       -
         name: Build
         run: make build
