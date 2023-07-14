@@ -34,11 +34,11 @@ dlogin.qa:
 	cat files/robot.qa | docker login -u 'bke-bkextest+bkextest' --password-stdin harbor.cis-qas.brown.edu
 
 #dlogin.prod: @ prod docker login
-dlogin.prod: files/robot.prod
+dlogin.prod: 
 	cat files/robot.prod | docker login -u 'bke-bkextest+bkextest' --password-stdin harbor.services.brown.edu
 
 #dlogin.dr: @ dr docker login
-dlogin.dr: files/robot.dr
+dlogin.dr: 
 	cat files/robot.dr | docker login -u 'bke-bkextest+bkextest' --password-stdin harbordr.services.brown.edu
 
 ## Harbor push
@@ -85,22 +85,22 @@ deploy.qa-bkpi:
 	echo "qbkeitest.virtorch.brown.edu"
 
 #deploy.bkpd: @ bkpd deploy
-deploy.bkpd: files/bkpd.yaml
+deploy.bkpd: 
 	kubectl apply -k ./bkpd --kubeconfig=files/bkpd.yaml
 	echo "bkedtest.virtorch.brown.edu"
 
 #deploy.bkpi: @ bkpi deploy
-deploy.bkpi: files/bkpi.yaml
+deploy.bkpi: 
 	kubectl apply -k ./bkpi --kubeconfig=files/bkpi.yaml
 	echo "bkeitest.virtorch.brown.edu"
 
 #deploy.bkpddr: @ bkpddr deploy
-deploy.bkpddr: files/bkpddr.yaml
+deploy.bkpddr: 
 	kubectl apply -k ./bkpddr --kubeconfig=files/bkpddr.yaml
 	echo "drbkedtest.virtorch.brown.edu"
 
 #deploy.bkpidr: @ bkpidr deploy
-deploy.bkpidr: files/bkpidr.yaml
+deploy.bkpidr: 
 	kubectl apply -k ./bkpidr --kubeconfig=files/bkpidr.yaml
 	echo "drbkeitest.virtorch.brown.edu"
 
@@ -138,19 +138,19 @@ delete.qa-bkpi:
 	-kubectl delete -k ./qa-bkpi --kubeconfig=files/qa-bkpi.yaml
 
 #delete.bkpd: @ bkpd delete
-delete.bkpd: files/bkpd.yaml
+delete.bkpd: 
 	-kubectl delete -k ./bkpd --kubeconfig=files/bkpd.yaml
 
 #delete.bkpi: @ bkpi delete
-delete.bkpi: files/bkpi.yaml
+delete.bkpi: 
 	-kubectl delete -k ./bkpi --kubeconfig=files/bkpi.yaml
 
 #delete.bkpddr: @ bkpddr delete
-delete.bkpddr: files/bkpddr.yaml
+delete.bkpddr: 
 	-kubectl delete -k ./bkpddr --kubeconfig=files/bkpddr.yaml
 
 #delete.bkpidr: @ bkpidr delete
-delete.bkpidr: files/bkpidr.yaml
+delete.bkpidr: 
 	-kubectl delete -k ./bkpidr --kubeconfig=files/bkpidr.yaml
 
 #delete.prod: @ Delete PROD

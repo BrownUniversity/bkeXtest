@@ -2,6 +2,10 @@ name: DR build and deploy of bkeXtest services
 on:
   release:
     types: [released]
+env:
+  DRBKPI_KUBECONF: ${{ secrets.DRBKPI_KUBECONF }}
+  DRBKPD_KUBECONF: ${{ secrets.DRBKPD_KUBECONF }}
+  ROBOT_DR: ${{ secrets.ROBOT_DR }}
     
 jobs:
   Building_and_Deploying_bkeXtest:
@@ -20,6 +24,15 @@ jobs:
         uses: azure/setup-kubectl@v3
         with:
           version: v1.22.0
+      -
+        name: pull kubeconfig
+        run: |
+          touch files/bkpidr.yaml
+          touch files/bkpddr.yaml
+          touch files/robot.dr
+          echo "$DRBKPI_KUBECONF" > files/bkpidr.yaml
+          echo "$DRBKPD_KUBECONF" > files/bkpddr.yaml
+          echo "$ROBOT_DR" > files/robot.dr
       -
         name: Build
         run: make build

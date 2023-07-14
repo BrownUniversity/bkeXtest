@@ -2,6 +2,10 @@ name: PROD build and deploy of bkeXtest services
 on:
   release:
     types: [released]
+env:
+  PBKPI_KUBECONF: ${{ secrets.PBKPI_KUBECONF }}
+  PBKPD_KUBECONF: ${{ secrets.PBKPD_KUBECONF }}
+  ROBOT_PROD: ${{ secrets.ROBOT_PROD }}
     
 jobs:
   Building_and_Deploying_bkeXtest:
@@ -20,6 +24,15 @@ jobs:
         uses: azure/setup-kubectl@v3
         with:
           version: v1.22.0
+      -
+        name: pull kubeconfig
+        run: |
+          touch files/bkpi.yaml
+          touch files/bkpd.yaml
+          touch files/robot.prod
+          echo "$PBKPI_KUBECONF" > files/bkpi.yaml
+          echo "$PBKPD_KUBECONF" > files/bkpd.yaml
+          echo "$ROBOT_PROD" > files/robot.PROD
       -
         name: Build
         run: make build
