@@ -31,9 +31,9 @@ jobs:
           touch files/dev-bkpi.yaml
           touch files/dev-bkpd.yaml
           touch files/robot.dev
-          echo $DBKPI_KUBECONF >> files/dev-bkpi.yaml
-          echo $DBKPD_KUBECONF >> files/dev-bkpd.yaml
-          echo $ROBOT_DEV >> files/robot.dev
+          echo "$DBKPI_KUBECONF" > files/dev-bkpi.yaml
+          echo "$DBKPD_KUBECONF" > files/dev-bkpd.yaml
+          echo "$ROBOT_DEV" > files/robot.dev
       -
         name: Build
         run: make build
