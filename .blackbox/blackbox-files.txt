@@ -1,4 +1,3 @@
-files/bkpd.yaml
 files/bkpddr.yaml
 files/bkpi.yaml
 files/bkpidr.yaml
