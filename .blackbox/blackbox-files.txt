@@ -1,5 +1,4 @@
 files/bkpddr.yaml
-files/bkpi.yaml
 files/bkpidr.yaml
 files/robot.dev
 files/robot.dr
