@@ -1,0 +1,48 @@
+name: DEV deploy of bkeXtest services
+on:
+  push:
+    branches:
+      tasks*
+env:
+  DBKPI_KUBECONF: ${{ secrets.DBKPI_KUBECONF }}
+  DBKPD_KUBECONF: ${{ secrets.DBKPD_KUBECONF }}
+  ROBOT_DEV: ${{ secrets.ROBOT_DEV }}
+    
+jobs:
+  Delete_and_Deploy_bkeXtest:
+    runs-on: [self-hosted, qa-ghrunner]
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      -
+        name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@111c56156bcc6918c056dbef52164cfa583dc549
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+      -
+        name: Get kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: v1.22.0
+      -
+        name: pull kubeconfig
+        run: |
+          touch files/dev-bkpi.yaml
+          touch files/dev-bkpd.yaml
+          touch files/robot.dev
+          echo $DBKPI_KUBECONF >> files/dev-bkpi.yaml
+          echo $DBKPD_KUBECONF >> files/dev-bkpd.yaml
+          echo $ROBOT_DEV >> files/robot.dev
+      -
+        name: Build
+        run: make build
+      -
+        name: Push
+        run: make push.dev
+      -
+        name: Delete
+        run: make delete.dev
+      -
+        name: Deploy
+        run: make deploy.dev

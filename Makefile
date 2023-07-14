@@ -44,7 +44,7 @@ dlogin.dr: files/robot.dr
 ## Harbor push
 
 #push.dev: @ Push to DEV harbor
-push.dev: dlogin.dev
+push.dev: 
 	docker push harbor.cis-dev.brown.edu/bkextest/bkextest
 
 #push.qa: @ Push to QA harbor
