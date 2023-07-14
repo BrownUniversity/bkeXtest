@@ -2,7 +2,7 @@ name: DEV deploy of bkeXtest services
 on:
   push:
     branches:
-      - 'tasks*'
+      - 'task*'
 env:
   DBKPI_KUBECONF: ${{ secrets.DBKPI_KUBECONF }}
   DBKPD_KUBECONF: ${{ secrets.DBKPD_KUBECONF }}
