@@ -3,7 +3,11 @@ on:
   push:
     branches:
       qa
-    
+env:
+  QBKPI_KUBECONF: ${{ secrets.QBKPI_KUBECONF }}
+  QBKPD_KUBECONF: ${{ secrets.QBKPD_KUBECONF }}
+  ROBOT_QA: ${{ secrets.ROBOT_QA }}
+
 jobs:
   Building_and_Deploying_bkeXtest:
     runs-on: [self-hosted, qa-ghrunner]
@@ -21,6 +25,16 @@ jobs:
         uses: azure/setup-kubectl@v3
         with:
           version: v1.22.0
+      -
+        name: pull kubeconfig
+        run: |
+          mkdir files
+          touch files/qa-bkpi.yaml
+          touch files/qa-bkpd.yaml
+          touch files/robot.qa
+          echo "$QBKPI_KUBECONF" > files/qa-bkpi.yaml
+          echo "$QBKPD_KUBECONF" > files/qa-bkpd.yaml
+          echo "$ROBOT_QA" > files/robot.qa
       -
         name: Build
         run: make build
