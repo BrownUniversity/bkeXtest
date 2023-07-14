@@ -1,4 +1,3 @@
-files/bkpidr.yaml
 files/robot.dev
 files/robot.dr
 files/robot.prod
