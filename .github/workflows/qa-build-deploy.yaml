@@ -28,6 +28,7 @@ jobs:
       -
         name: pull kubeconfig
         run: |
+          mkdir files
           touch files/qa-bkpi.yaml
           touch files/qa-bkpd.yaml
           touch files/robot.qa
