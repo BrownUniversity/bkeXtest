@@ -27,6 +27,7 @@ jobs:
       -
         name: pull kubeconfig
         run: |
+          mkdir files
           touch files/bkpidr.yaml
           touch files/bkpddr.yaml
           touch files/robot.dr
