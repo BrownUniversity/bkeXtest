@@ -30,7 +30,7 @@ dlogin.dev:
 	cat files/robot.dev | docker login -u 'bke-bkextest+bkextest' --password-stdin harbor.cis-dev.brown.edu
 
 #dlogin.qa: @ qa docker login
-dlogin.qa: files/robot.qa
+dlogin.qa: 
 	cat files/robot.qa | docker login -u 'bke-bkextest+bkextest' --password-stdin harbor.cis-qas.brown.edu
 
 #dlogin.prod: @ prod docker login
@@ -75,12 +75,12 @@ deploy.dev-bkpd:
 	echo "dbkedtest.virtorch.brown.edu"
 
 #deploy.qa-bkpd: @ qa-bkpd deploy
-deploy.qa-bkpd: files/qa-bkpd.yaml
+deploy.qa-bkpd: 
 	kubectl apply -k ./qa-bkpd --kubeconfig=files/qa-bkpd.yaml
 	echo "qbkedtest.virtorch.brown.edu"
 
 #deploy.qa-bkpi: @ qa-bkpi deploy
-deploy.qa-bkpi: files/qa-bkpi.yaml
+deploy.qa-bkpi: 
 	kubectl apply -k ./qa-bkpi --kubeconfig=files/qa-bkpi.yaml
 	echo "qbkeitest.virtorch.brown.edu"
 
@@ -130,11 +130,11 @@ delete.dev-bkpd:
 	-kubectl delete -k ./dev-bkpd --kubeconfig=files/dev-bkpd.yaml
 
 #delete.qa-bkpd: @ qa-bkpd delete
-delete.qa-bkpd: files/qa-bkpd.yaml
+delete.qa-bkpd: 
 	-kubectl delete -k ./qa-bkpd --kubeconfig=files/qa-bkpd.yaml
 
 #delete.qa-bkpi: @ qa-bkpi delete
-delete.qa-bkpi: files/qa-bkpi.yaml
+delete.qa-bkpi: 
 	-kubectl delete -k ./qa-bkpi --kubeconfig=files/qa-bkpi.yaml
 
 #delete.bkpd: @ bkpd delete
@@ -172,7 +172,3 @@ delete: delete.dev-bkpi delete.dev-bkpd delete.qa-bkpd delete.qa-bkpi delete.bkp
 #test: @ simple curl test of URLs
 test: 
 	@$(foreach serv, $(SERVS), echo -n "$(serv): "; curl -m 3 https://$(serv).virtorch.brown.edu; echo ""; )
-
-#report: @ report on all clusters
-report: files/qa-bkpi.yaml files/qa-bkpd.yaml files/bkpi.yaml files/bkpd.yaml files/bkpidr.yaml files/bkpddr.yaml files/dev-bkpi.yaml files/dev-bkpd.yaml
-	@$(foreach file, $(CLUSTERS), kubectl get nodes --kubeconfig=files/$(file).yaml| grep Ready | wc -l ; )
