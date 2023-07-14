@@ -3,7 +3,6 @@ files/bkpddr.yaml
 files/bkpi.yaml
 files/bkpidr.yaml
 files/qa-bkpd.yaml
-files/qa-bkpi.yaml
 files/robot.dev
 files/robot.dr
 files/robot.prod
