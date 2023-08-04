@@ -33,7 +33,7 @@ jobs:
           touch files/robot.prod
           echo "$PBKPI_KUBECONF" > files/bkpi.yaml
           echo "$PBKPD_KUBECONF" > files/bkpd.yaml
-          echo "$ROBOT_PROD" > files/robot.PROD
+          echo "$ROBOT_PROD" > files/robot.prod
       -
         name: Build
         run: make build
