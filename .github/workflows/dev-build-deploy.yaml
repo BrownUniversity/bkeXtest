@@ -28,13 +28,13 @@ jobs:
       -
         name: pull kubeconfig
         run: |
-          mkdir files
-          touch files/dev-bkpi.yaml
-          touch files/dev-bkpd.yaml
-          touch files/robot.dev
-          echo "$DBKPI_KUBECONF" > files/dev-bkpi.yaml
-          echo "$DBKPD_KUBECONF" > files/dev-bkpd.yaml
-          echo "$ROBOT_DEV" > files/robot.dev
+          mkdir secrets
+          touch secrets/dev-bkpi.yaml
+          touch secrets/dev-bkpd.yaml
+          touch secrets/robot-dev.txt
+          echo "$DBKPI_KUBECONF" > secrets/dev-bkpi.yaml
+          echo "$DBKPD_KUBECONF" > secrets/dev-bkpd.yaml
+          echo "$ROBOT_DEV" > secrets/robot-dev.txt
       -
         name: Build
         run: make build

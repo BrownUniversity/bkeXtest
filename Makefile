@@ -19,6 +19,16 @@ SERVS ?= bkeitest bkedtest drbkeitest drbkedtest qbkeitest qbkedtest dbkeitest d
 	delete.dev-bkpi delete.dev-bkpd \
 	test report
 
+#local-dev: @ pull in secrets from bke-vo-secrets repo
+local-dev:
+	mkdir secrets
+	cp ../bke-vo-secrets/kubeconf/*.yaml ./secrets
+	cp ../bke-vo-secrets/robot/*.txt ./secrets
+
+#clean: @ clean local-dev secrets
+clean:
+	rm -rf ./secrets
+
 #build: @ Build bkextest image
 build: 
 	docker build -t harbor.services.brown.edu/bkextest/bkextest -t harbor.cis-qas.brown.edu/bkextest/bkextest -t harbordr.services.brown.edu/bkextest/bkextest -t harbor.cis-dev.brown.edu/bkextest/bkextest ./
@@ -27,19 +37,19 @@ build:
 
 #dlogin.dev: @ dev docker login
 dlogin.dev:
-	cat files/robot.dev | docker login -u 'bke-bkextest+bkextest' --password-stdin harbor.cis-dev.brown.edu
+	cat secrets/robot-dev.txt | docker login -u 'bke-bkextest+bkextest' --password-stdin harbor.cis-dev.brown.edu
 
 #dlogin.qa: @ qa docker login
 dlogin.qa: 
-	cat files/robot.qa | docker login -u 'bke-bkextest+bkextest' --password-stdin harbor.cis-qas.brown.edu
+	cat secrets/robot-qa.txt | docker login -u 'bke-bkextest+bkextest' --password-stdin harbor.cis-qas.brown.edu
 
 #dlogin.prod: @ prod docker login
 dlogin.prod: 
-	cat files/robot.prod | docker login -u 'bke-bkextest+bkextest' --password-stdin harbor.services.brown.edu
+	cat secrets/robot-prod.txt | docker login -u 'bke-bkextest+bkextest' --password-stdin harbor.services.brown.edu
 
 #dlogin.dr: @ dr docker login
 dlogin.dr: 
-	cat files/robot.dr | docker login -u 'bke-bkextest+bkextest' --password-stdin harbordr.services.brown.edu
+	cat secrets/robot-dr.txt | docker login -u 'bke-bkextest+bkextest' --password-stdin harbordr.services.brown.edu
 
 ## Harbor push
 
@@ -66,42 +76,42 @@ push: push.qa push.prod push.dr
 
 #deploy.dev-bkpi: @ dev-bkpi deploy
 deploy.dev-bkpi: 
-	kubectl apply -k ./dev-bkpi --kubeconfig=files/dev-bkpi.yaml
+	kubectl apply -k ./dev-bkpi --kubeconfig=secrets/dev-bkpi.yaml
 	echo "dbkeitest.virtorch.brown.edu"
 
 #deploy.dev-bkpd: @ dev-bkpd deploy
 deploy.dev-bkpd: 
-	kubectl apply -k ./dev-bkpd --kubeconfig=files/dev-bkpd.yaml
+	kubectl apply -k ./dev-bkpd --kubeconfig=secrets/dev-bkpd.yaml
 	echo "dbkedtest.virtorch.brown.edu"
 
 #deploy.qa-bkpd: @ qa-bkpd deploy
 deploy.qa-bkpd: 
-	kubectl apply -k ./qa-bkpd --kubeconfig=files/qa-bkpd.yaml
+	kubectl apply -k ./qa-bkpd --kubeconfig=secrets/qa-bkpd.yaml
 	echo "qbkedtest.virtorch.brown.edu"
 
 #deploy.qa-bkpi: @ qa-bkpi deploy
 deploy.qa-bkpi: 
-	kubectl apply -k ./qa-bkpi --kubeconfig=files/qa-bkpi.yaml
+	kubectl apply -k ./qa-bkpi --kubeconfig=secrets/qa-bkpi.yaml
 	echo "qbkeitest.virtorch.brown.edu"
 
 #deploy.bkpd: @ bkpd deploy
 deploy.bkpd: 
-	kubectl apply -k ./bkpd --kubeconfig=files/bkpd.yaml
+	kubectl apply -k ./bkpd --kubeconfig=secrets/prod-bkpd.yaml
 	echo "bkedtest.virtorch.brown.edu"
 
 #deploy.bkpi: @ bkpi deploy
 deploy.bkpi: 
-	kubectl apply -k ./bkpi --kubeconfig=files/bkpi.yaml
+	kubectl apply -k ./bkpi --kubeconfig=secrets/prod-bkpi.yaml
 	echo "bkeitest.virtorch.brown.edu"
 
 #deploy.bkpddr: @ bkpddr deploy
 deploy.bkpddr: 
-	kubectl apply -k ./bkpddr --kubeconfig=files/bkpddr.yaml
+	kubectl apply -k ./bkpddr --kubeconfig=secrets/dr-bkpd.yaml
 	echo "drbkedtest.virtorch.brown.edu"
 
 #deploy.bkpidr: @ bkpidr deploy
 deploy.bkpidr: 
-	kubectl apply -k ./bkpidr --kubeconfig=files/bkpidr.yaml
+	kubectl apply -k ./bkpidr --kubeconfig=secrets/dr-bkpi.yaml
 	echo "drbkeitest.virtorch.brown.edu"
 
 #deploy.prod: @ Deploy to PROD
@@ -123,35 +133,35 @@ deploy: deploy.dev-bkpi deploy.dev-bkpd deploy.qa-bkpd  deploy.qa-bkpi deploy.bk
 
 #delete.dev-bkpi: @ dev-bkpi delete
 delete.dev-bkpi: 
-	-kubectl delete -k ./dev-bkpi --kubeconfig=files/dev-bkpi.yaml
+	-kubectl delete -k ./dev-bkpi --kubeconfig=secrets/dev-bkpi.yaml
 
 #delete.dev-bkpd: @ dev-bkpd delete
 delete.dev-bkpd: 
-	-kubectl delete -k ./dev-bkpd --kubeconfig=files/dev-bkpd.yaml
+	-kubectl delete -k ./dev-bkpd --kubeconfig=secrets/dev-bkpd.yaml
 
 #delete.qa-bkpd: @ qa-bkpd delete
 delete.qa-bkpd: 
-	-kubectl delete -k ./qa-bkpd --kubeconfig=files/qa-bkpd.yaml
+	-kubectl delete -k ./qa-bkpd --kubeconfig=secrets/qa-bkpd.yaml
 
 #delete.qa-bkpi: @ qa-bkpi delete
 delete.qa-bkpi: 
-	-kubectl delete -k ./qa-bkpi --kubeconfig=files/qa-bkpi.yaml
+	-kubectl delete -k ./qa-bkpi --kubeconfig=secrets/qa-bkpi.yaml
 
 #delete.bkpd: @ bkpd delete
 delete.bkpd: 
-	-kubectl delete -k ./bkpd --kubeconfig=files/bkpd.yaml
+	-kubectl delete -k ./bkpd --kubeconfig=secrets/prod-bkpd.yaml
 
 #delete.bkpi: @ bkpi delete
 delete.bkpi: 
-	-kubectl delete -k ./bkpi --kubeconfig=files/bkpi.yaml
+	-kubectl delete -k ./bkpi --kubeconfig=secrets/prod-bkpi.yaml
 
 #delete.bkpddr: @ bkpddr delete
 delete.bkpddr: 
-	-kubectl delete -k ./bkpddr --kubeconfig=files/bkpddr.yaml
+	-kubectl delete -k ./bkpddr --kubeconfig=secrets/dr-bkpd.yaml
 
 #delete.bkpidr: @ bkpidr delete
 delete.bkpidr: 
-	-kubectl delete -k ./bkpidr --kubeconfig=files/bkpidr.yaml
+	-kubectl delete -k ./bkpidr --kubeconfig=secrets/dr-bkpi.yaml
 
 #delete.prod: @ Delete PROD
 delete.prod: delete.bkpd delete.bkpi
