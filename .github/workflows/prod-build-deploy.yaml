@@ -27,13 +27,13 @@ jobs:
       -
         name: pull kubeconfig
         run: |
-          mkdir files
-          touch files/bkpi.yaml
-          touch files/bkpd.yaml
-          touch files/robot.prod
-          echo "$PBKPI_KUBECONF" > files/bkpi.yaml
-          echo "$PBKPD_KUBECONF" > files/bkpd.yaml
-          echo "$ROBOT_PROD" > files/robot.prod
+          mkdir secrets
+          touch secrets/prod-bkpi.yaml
+          touch secrets/prod-bkpd.yaml
+          touch secrets/robot-prod.txt
+          echo "$PBKPI_KUBECONF" > secrets/prod-bkpi.yaml
+          echo "$PBKPD_KUBECONF" > secrets/prod-bkpd.yaml
+          echo "$ROBOT_PROD" > secrets/robot-prod.txt
       -
         name: Build
         run: make build
