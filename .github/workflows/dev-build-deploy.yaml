@@ -10,7 +10,7 @@ env:
     
 jobs:
   Delete_and_Deploy_bkeXtest:
-    runs-on: dev-arc-runner-set
+    runs-on: [self-hosted, qa-ghrunner]
     steps:
       -
         name: Checkout
