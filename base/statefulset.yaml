@@ -18,7 +18,7 @@ spec:
         image: busybox
         command: ["sh", "-c", "echo ok > /usr/share/nginx/html/index.html"]
         volumeMounts:
-          - name: bkextest
+          - name: vast-bkextest
             mountPath: /usr/share/nginx/html
         resources:
           requests:
@@ -34,7 +34,7 @@ spec:
         ports:
         - containerPort: 8080
         volumeMounts:
-        - name: bkextest
+        - name: vast-bkextest
           mountPath: /usr/share/nginx/html
         resources:
           requests:
@@ -47,11 +47,11 @@ spec:
         node-role.kubernetes.io/worker: "true"
   volumeClaimTemplates:
   - metadata:
-      name: bkextest
+      name: vast-bkextest
     spec:
       accessModes: [ "ReadWriteOnce" ]
-      storageClassName: oitvo-nfs
+      storageClassName: vast-oitvo-nfs
       resources:
         requests:
-          storage: 1Gi
+          storage: 100m
 

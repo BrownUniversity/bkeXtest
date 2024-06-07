@@ -21,9 +21,11 @@ SERVS ?= bkeitest bkedtest drbkeitest drbkedtest qbkeitest qbkedtest dbkeitest d
 
 #local-dev: @ pull in secrets from bke-vo-secrets repo
 local-dev:
+	git clone git@github.com:BrownUniversity/bke-vo-secrets.git 
+	cd bke-vo-secrets && make secrets
 	mkdir secrets
-	cp ../bke-vo-secrets/kubeconf/*.yaml ./secrets
-	cp ../bke-vo-secrets/robot/*.txt ./secrets
+	cp ./bke-vo-secrets/kubeconf/*.yaml ./secrets
+	cp ./bke-vo-secrets/robot/*.txt ./secrets
 
 #clean: @ clean local-dev secrets
 clean:
