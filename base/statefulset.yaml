@@ -53,5 +53,5 @@ spec:
       storageClassName: vast-oitvo-nfs
       resources:
         requests:
-          storage: 100m
+          storage: 100M
 
