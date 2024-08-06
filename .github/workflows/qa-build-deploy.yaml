@@ -24,7 +24,7 @@ jobs:
         name: Get kubectl
         uses: azure/setup-kubectl@v3
         with:
-          version: v1.22.0
+          version: v1.26.0
       -
         name: pull kubeconfig
         run: |
@@ -35,6 +35,11 @@ jobs:
           echo "$QBKPI_KUBECONF" > secrets/qa-bkpi.yaml
           echo "$QBKPD_KUBECONF" > secrets/qa-bkpd.yaml
           echo "$ROBOT_QA" > secrets/robot-qa.txt
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          install: true
       -
         name: Build
         run: make build
