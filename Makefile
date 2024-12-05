@@ -4,7 +4,7 @@
 help:
 	@grep -E '[a-zA-Z\.\-]+:.*?@ .*$$' $(MAKEFILE_LIST)| tr -d '#'  | awk 'BEGIN {FS = ":.*?@ "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-CLUSTERS ?= qa-bkpd qa-bkpi bkpd bkpi bkpddr bkpidr dev-bkpi dev-bkpd
+CLUSTERS ?= qa-bkpd qa-bkpi bkpd bkpi bkpddr bkpidr dev-bkei dev-bked
 SERVS ?= bkeitest bkedtest drbkeitest drbkedtest qbkeitest qbkedtest dbkeitest dbkedtest
 
 .PHONY: build dlogin.qa dlogin.prod dlogin.dr \
@@ -12,11 +12,11 @@ SERVS ?= bkeitest bkedtest drbkeitest drbkedtest qbkeitest qbkedtest dbkeitest d
 	deploy.qa-bkpd deploy.qa-bkpi \
 	deploy.bkpd deploy.bkpi \
 	deploy.bkpddr deploy.bkpidr \
-	deploy.dev-bkpi deploy.dev-bkpd \
+	deploy.dev-bkei deploy.dev-bked \
 	delete.qa-bkpd delete.qa-bkpi \
 	delete.bkpd delete.bkpi \
 	delete.bkpddr delete.bkpidr \
-	delete.dev-bkpi delete.dev-bkpd \
+	delete.dev-bkei delete.dev-bked \
 	test report
 
 #local-dev: @ pull in secrets from bke-vo-secrets repo
@@ -30,6 +30,7 @@ local-dev:
 #clean: @ clean local-dev secrets
 clean:
 	rm -rf ./secrets
+	rm -rf ./bke-vo-secrets
 
 #build: @ Build bkextest image
 build: 
@@ -76,14 +77,14 @@ push: push.qa push.prod push.dr
 
 ## Deploys
 
-#deploy.dev-bkpi: @ dev-bkpi deploy
-deploy.dev-bkpi: 
-	kubectl apply -k ./dev-bkpi --kubeconfig=secrets/dev-bkpi.yaml
+#deploy.dev-bkei: @ dev-bkei deploy
+deploy.dev-bkei: 
+	kubectl apply -k ./dev-bkei --kubeconfig=secrets/dev-bkei.yaml
 	echo "dbkeitest.virtorch.brown.edu"
 
-#deploy.dev-bkpd: @ dev-bkpd deploy
-deploy.dev-bkpd: 
-	kubectl apply -k ./dev-bkpd --kubeconfig=secrets/dev-bkpd.yaml
+#deploy.dev-bked: @ dev-bked deploy
+deploy.dev-bked: 
+	kubectl apply -k ./dev-bked --kubeconfig=secrets/dev-bked.yaml
 	echo "dbkedtest.virtorch.brown.edu"
 
 #deploy.qa-bkpd: @ qa-bkpd deploy
@@ -126,20 +127,20 @@ deploy.dr: deploy.bkpddr deploy.bkpidr
 deploy.qa: deploy.qa-bkpd  deploy.qa-bkpi
 
 #deploy.dev: @ Deploy to DEV
-deploy.dev: deploy.dev-bkpi deploy.dev-bkpd
+deploy.dev: deploy.dev-bkei deploy.dev-bked
 
 #deploy: @ deploy bkeXtest app to all clusters
-deploy: deploy.dev-bkpi deploy.dev-bkpd deploy.qa-bkpd  deploy.qa-bkpi deploy.bkpd deploy.bkpi deploy.bkpddr deploy.bkpidr deploy.dev-bkpd
+deploy: deploy.dev-bkei deploy.dev-bked deploy.qa-bkpd  deploy.qa-bkpi deploy.bkpd deploy.bkpi deploy.bkpddr deploy.bkpidr deploy.dev-bked
 
 ## Deletes
 
-#delete.dev-bkpi: @ dev-bkpi delete
-delete.dev-bkpi: 
-	-kubectl delete -k ./dev-bkpi --kubeconfig=secrets/dev-bkpi.yaml
+#delete.dev-bkei: @ dev-bkei delete
+delete.dev-bkei: 
+	-kubectl delete -k ./dev-bkei --kubeconfig=secrets/dev-bkei.yaml
 
-#delete.dev-bkpd: @ dev-bkpd delete
-delete.dev-bkpd: 
-	-kubectl delete -k ./dev-bkpd --kubeconfig=secrets/dev-bkpd.yaml
+#delete.dev-bked: @ dev-bked delete
+delete.dev-bked: 
+	-kubectl delete -k ./dev-bked --kubeconfig=secrets/dev-bked.yaml
 
 #delete.qa-bkpd: @ qa-bkpd delete
 delete.qa-bkpd: 
@@ -175,10 +176,10 @@ delete.dr: delete.bkpddr delete.bkpidr
 delete.qa: delete.qa-bkpd delete.qa-bkpi
 
 #delete.dev: @ Delete DEV
-delete.dev: delete.dev-bkpd delete.dev-bkpi
+delete.dev: delete.dev-bked delete.dev-bkei
 
 #delete: @ delete bkeXtest app to all clusters
-delete: delete.dev-bkpi delete.dev-bkpd delete.qa-bkpd delete.qa-bkpi delete.bkpd delete.bkpi delete.bkpddr delete.bkpidr
+delete: delete.dev-bkei delete.dev-bked delete.qa-bkpd delete.qa-bkpi delete.bkpd delete.bkpi delete.bkpddr delete.bkpidr
 
 ## Tests
 #test: @ simple curl test of URLs
