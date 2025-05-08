@@ -3,8 +3,8 @@ on:
   release:
     types: [released]
 env:
-  PBKPI_KUBECONF: ${{ secrets.PBKPI_KUBECONF }}
-  PBKPD_KUBECONF: ${{ secrets.PBKPD_KUBECONF }}
+  PBKEI_KUBECONF: ${{ secrets.PBKEI_KUBECONF }}
+  PBKED_KUBECONF: ${{ secrets.PBKED_KUBECONF }}
   ROBOT_PROD: ${{ secrets.ROBOT_PROD }}
     
 jobs:
@@ -28,11 +28,11 @@ jobs:
         name: pull kubeconfig
         run: |
           mkdir secrets
-          touch secrets/prod-bkpi.yaml
-          touch secrets/prod-bkpd.yaml
+          touch secrets/prod-bkei.yaml
+          touch secrets/prod-bked.yaml
           touch secrets/robot-prod.txt
-          echo "$PBKPI_KUBECONF" > secrets/prod-bkpi.yaml
-          echo "$PBKPD_KUBECONF" > secrets/prod-bkpd.yaml
+          echo "$PBKEI_KUBECONF" > secrets/prod-bkei.yaml
+          echo "$PBKED_KUBECONF" > secrets/prod-bked.yaml
           echo "$ROBOT_PROD" > secrets/robot-prod.txt
       -
         name: Set up Docker Buildx

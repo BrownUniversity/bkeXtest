@@ -4,8 +4,8 @@ on:
     branches:
       dev
 env:
-  DBKPI_KUBECONF: ${{ secrets.DBKPI_KUBECONF }}
-  DBKPD_KUBECONF: ${{ secrets.DBKPD_KUBECONF }}
+  DBKEI_KUBECONF: ${{ secrets.DBKEI_KUBECONF }}
+  DBKED_KUBECONF: ${{ secrets.DBKED_KUBECONF }}
   ROBOT_DEV: ${{ secrets.ROBOT_DEV }}
     
 jobs:
@@ -24,16 +24,16 @@ jobs:
         name: Get kubectl
         uses: azure/setup-kubectl@v3
         with:
-          version: v1.26.0
+          version: v1.30.0
       -
         name: pull kubeconfig
         run: |
           mkdir secrets
-          touch secrets/dev-bkpi.yaml
-          touch secrets/dev-bkpd.yaml
+          touch secrets/dev-bkei.yaml
+          touch secrets/dev-bked.yaml
           touch secrets/robot-dev.txt
-          echo "$DBKPI_KUBECONF" > secrets/dev-bkpi.yaml
-          echo "$DBKPD_KUBECONF" > secrets/dev-bkpd.yaml
+          echo "$DBKEI_KUBECONF" > secrets/dev-bkei.yaml
+          echo "$DBKED_KUBECONF" > secrets/dev-bked.yaml
           echo "$ROBOT_DEV" > secrets/robot-dev.txt
       -
         name: Set up Docker Buildx
