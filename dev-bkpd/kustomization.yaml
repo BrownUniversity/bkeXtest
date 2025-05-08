@@ -1,7 +1,0 @@
-bases:
-- ../base
-patchesStrategicMerge:
-- statefulset.yaml
-- ingress.yaml
-resources:
-- cert.yaml

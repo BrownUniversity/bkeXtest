@@ -4,8 +4,8 @@ on:
     branches:
       qa
 env:
-  QBKPI_KUBECONF: ${{ secrets.QBKPI_KUBECONF }}
-  QBKPD_KUBECONF: ${{ secrets.QBKPD_KUBECONF }}
+  QBKEI_KUBECONF: ${{ secrets.QBKEI_KUBECONF }}
+  QBKED_KUBECONF: ${{ secrets.QBKED_KUBECONF }}
   ROBOT_QA: ${{ secrets.ROBOT_QA }}
 
 jobs:
@@ -24,16 +24,16 @@ jobs:
         name: Get kubectl
         uses: azure/setup-kubectl@v3
         with:
-          version: v1.26.0
+          version: v1.30.0
       -
         name: pull kubeconfig
         run: |
           mkdir secrets
-          touch secrets/qa-bkpi.yaml
-          touch secrets/qa-bkpd.yaml
+          touch secrets/qa-bkei.yaml
+          touch secrets/qa-bked.yaml
           touch secrets/robot-qa.txt
-          echo "$QBKPI_KUBECONF" > secrets/qa-bkpi.yaml
-          echo "$QBKPD_KUBECONF" > secrets/qa-bkpd.yaml
+          echo "$QBKEI_KUBECONF" > secrets/qa-bkei.yaml
+          echo "$QBKED_KUBECONF" > secrets/qa-bked.yaml
           echo "$ROBOT_QA" > secrets/robot-qa.txt
       -
         name: Set up Docker Buildx
