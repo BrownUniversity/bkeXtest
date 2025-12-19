@@ -5,7 +5,7 @@ on:
 env:
   PBKEI_KUBECONF: ${{ secrets.PBKEI_KUBECONF }}
   PBKED_KUBECONF: ${{ secrets.PBKED_KUBECONF }}
-  ROBOT_PROD: ${{ secrets.ROBOT_PROD }}
+  PROD_XTEST_ROBOT: ${{ secrets.PROD_XTEST_ROBOT }}
     
 jobs:
   Building_and_Deploying_bkeXtest:
@@ -13,7 +13,7 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd
       -
         name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@111c56156bcc6918c056dbef52164cfa583dc549
@@ -21,7 +21,7 @@ jobs:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
       -
         name: Get kubectl
-        uses: azure/setup-kubectl@v3
+        uses: azure/setup-kubectl@901a10e89ea615cf61f57ac05cecdf23e7de06d8
         with:
           version: v1.26.0
       -
@@ -33,10 +33,10 @@ jobs:
           touch secrets/robot-prod.txt
           echo "$PBKEI_KUBECONF" > secrets/prod-bkei.yaml
           echo "$PBKED_KUBECONF" > secrets/prod-bked.yaml
-          echo "$ROBOT_PROD" > secrets/robot-prod.txt
+          echo "$PROD_XTEST_ROBOT" > secrets/robot-prod.txt
       -
         name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f
         with:
           install: true
       -
