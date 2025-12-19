@@ -5,7 +5,7 @@ on:
 env:
   DRBKEI_KUBECONF: ${{ secrets.DRBKEI_KUBECONF }}
   DRBKED_KUBECONF: ${{ secrets.DRBKED_KUBECONF }}
-  ROBOT_DR: ${{ secrets.ROBOT_DR }}
+  DR_XTEST_ROBOT: ${{ secrets.DR_XTEST_ROBOT }}
     
 jobs:
   Building_and_Deploying_bkeXtest:
@@ -33,7 +33,7 @@ jobs:
           touch secrets/robot-dr.txt
           echo "$DRBKEI_KUBECONF" > secrets/dr-bkei.yaml
           echo "$DRBKED_KUBECONF" > secrets/dr-bked.yaml
-          echo "$ROBOT_DR" > secrets/robot-dr.txt
+          echo "$DR_XTEST_ROBOT" > secrets/robot-dr.txt
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3

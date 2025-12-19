@@ -6,7 +6,7 @@ on:
 env:
   DBKEI_KUBECONF: ${{ secrets.DBKEI_KUBECONF }}
   DBKED_KUBECONF: ${{ secrets.DBKED_KUBECONF }}
-  ROBOT_DEV: ${{ secrets.ROBOT_DEV }}
+  DEV_XTEST_ROBOT: ${{ secrets.DEV_XTEST_ROBOT }}
     
 jobs:
   Delete_and_Deploy_bkeXtest:
@@ -34,7 +34,7 @@ jobs:
           touch secrets/robot-dev.txt
           echo "$DBKEI_KUBECONF" > secrets/dev-bkei.yaml
           echo "$DBKED_KUBECONF" > secrets/dev-bked.yaml
-          echo "$ROBOT_DEV" > secrets/robot-dev.txt
+          echo "$DEV_XTEST_ROBOT" > secrets/robot-dev.txt
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3

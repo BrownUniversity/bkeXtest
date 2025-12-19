@@ -5,7 +5,7 @@ on:
 env:
   PBKEI_KUBECONF: ${{ secrets.PBKEI_KUBECONF }}
   PBKED_KUBECONF: ${{ secrets.PBKED_KUBECONF }}
-  ROBOT_PROD: ${{ secrets.ROBOT_PROD }}
+  PROD_XTEST_ROBOT: ${{ secrets.PROD_XTEST_ROBOT }}
     
 jobs:
   Building_and_Deploying_bkeXtest:
@@ -33,7 +33,7 @@ jobs:
           touch secrets/robot-prod.txt
           echo "$PBKEI_KUBECONF" > secrets/prod-bkei.yaml
           echo "$PBKED_KUBECONF" > secrets/prod-bked.yaml
-          echo "$ROBOT_PROD" > secrets/robot-prod.txt
+          echo "$PROD_XTEST_ROBOT" > secrets/robot-prod.txt
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
