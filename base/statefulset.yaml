@@ -33,6 +33,7 @@ spec:
         imagePullPolicy: Always    
         ports:
         - containerPort: 8080
+          protocol: TCP
         volumeMounts:
         - name: vast-bkextest
           mountPath: /usr/share/nginx/html

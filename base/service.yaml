@@ -4,6 +4,7 @@ metadata:
   name: bkextest
 spec:
   ports:
-  - port: 8080
+  - name: http-web
+    port: 8080
   selector:
     app: bkextest
