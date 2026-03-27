@@ -18,11 +18,11 @@ jobs:
         with:
           export-env: true
         env:
-          OP_CONNECT_HOST: secretsvault.apps.brown.edu
+          OP_CONNECT_HOST: secretsvault.cis-qas.brown.edu
           OP_CONNECT_TOKEN: ${{ secrets.VO_AUTOMATION_CONNECT_TOKEN }}
-          DEV-BKEI: op://ozxznermh2dq4gbh55do65oq7e/tsiwmcw7ah3urm3hh3jtixsqc4/dev-bkei.yaml
-          DEV-BKED: op://ozxznermh2dq4gbh55do65oq7e/mhm3722zxoyp6tn5osntrcsptq/dev-bked.yaml
-          ROBOT-DEV: op://ozxznermh2dq4gbh55do65oq7e/npjh733tyzkabzayuav7acwaiy/credential
+          DEV_BKEI: op://ozxznermh2dq4gbh55do65oq7e/tsiwmcw7ah3urm3hh3jtixsqc4/dev-bkei.yaml
+          DEV_BKED: op://ozxznermh2dq4gbh55do65oq7e/mhm3722zxoyp6tn5osntrcsptq/dev-bked.yaml
+          ROBOT_DEV: op://ozxznermh2dq4gbh55do65oq7e/npjh733tyzkabzayuav7acwaiy/credential
       
       -
         name: Get kubectl
@@ -38,7 +38,7 @@ jobs:
           touch secrets/robot-dev.txt
           echo "$DEV_BKEI" > secrets/dev-bkei.yaml
           echo "$DEV_BKED" > secrets/dev-bked.yaml
-          echo "$ROBOT-DEV" > secrets/robot-dev.txt
+          echo "$ROBOT_DEV" > secrets/robot-dev.txt
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3.0.0

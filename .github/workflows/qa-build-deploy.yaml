@@ -18,11 +18,11 @@ jobs:
         with:
           export-env: true
         env:
-          OP_CONNECT_HOST: secretsvault.apps.brown.edu
+          OP_CONNECT_HOST: secretsvault.cis-qas.brown.edu
           OP_CONNECT_TOKEN: ${{ secrets.VO_AUTOMATION_CONNECT_TOKEN }}
-          QA-BKEI: op://ozxznermh2dq4gbh55do65oq7e/x6xih2sdzstjcwna4xnhfwyqru/qa-bkei.yaml
-          QA-BKED: op://ozxznermh2dq4gbh55do65oq7e/fslejjfdbkkor2cpn7kfxa2hua/qa-bked.yaml
-          ROBOT-QA: op://ozxznermh2dq4gbh55do65oq7e/d3thgre3wspmoxld6mlazplnhy/credential
+          QA_BKEI: op://ozxznermh2dq4gbh55do65oq7e/x6xih2sdzstjcwna4xnhfwyqru/qa-bkei.yaml
+          QA_BKED: op://ozxznermh2dq4gbh55do65oq7e/fslejjfdbkkor2cpn7kfxa2hua/qa-bked.yaml
+          ROBOT_QA: op://ozxznermh2dq4gbh55do65oq7e/d3thgre3wspmoxld6mlazplnhy/credential
       -
         name: Get kubectl
         uses: azure/setup-kubectl@901a10e89ea615cf61f57ac05cecdf23e7de06d8 # v3.2.0
@@ -35,9 +35,9 @@ jobs:
           touch secrets/qa-bkei.yaml
           touch secrets/qa-bked.yaml
           touch secrets/robot-qa.txt
-          echo "$QA-BKEI" > secrets/qa-bkei.yaml
-          echo "$QA-BKED" > secrets/qa-bked.yaml
-          echo "$ROBOT-QA" > secrets/robot-qa.txt
+          echo "$QA_BKEI" > secrets/qa-bkei.yaml
+          echo "$QA_BKED" > secrets/qa-bked.yaml
+          echo "$ROBOT_QA" > secrets/robot-qa.txt
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3.0.0
