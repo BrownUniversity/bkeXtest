@@ -19,9 +19,9 @@ jobs:
         env:
           OP_CONNECT_HOST: secretsvault.apps.brown.edu
           OP_CONNECT_TOKEN: ${{ secrets.VO_AUTOMATION_CONNECT_TOKEN }}
-          PROD-BKEI: op://ozxznermh2dq4gbh55do65oq7e/p3prcq4ibc4ped7hhace22uv7a/prod-bkei.yaml
-          PROD-BKED: op://ozxznermh2dq4gbh55do65oq7e/kmvnborkdzg2xrq5y5hayglrse/prod-bked.yaml
-          ROBOT-PROD: op://ozxznermh2dq4gbh55do65oq7e/rdy73megsttd5bmfusa7ngeiqe/credential
+          PROD_BKEI: op://ozxznermh2dq4gbh55do65oq7e/p3prcq4ibc4ped7hhace22uv7a/prod-bkei.yaml
+          PROD_BKED: op://ozxznermh2dq4gbh55do65oq7e/kmvnborkdzg2xrq5y5hayglrse/prod-bked.yaml
+          ROBOT_PROD: op://ozxznermh2dq4gbh55do65oq7e/rdy73megsttd5bmfusa7ngeiqe/credential
       -
         name: Get kubectl
         uses: azure/setup-kubectl@901a10e89ea615cf61f57ac05cecdf23e7de06d8 # v3.2.0
@@ -34,9 +34,9 @@ jobs:
           touch secrets/prod-bkei.yaml
           touch secrets/prod-bked.yaml
           touch secrets/robot-prod.txt
-          echo "$PROD-BKEI" > secrets/prod-bkei.yaml
-          echo "$PROD-BKED" > secrets/prod-bked.yaml
-          echo "$ROBOT-PROD" > secrets/robot-prod.txt
+          echo "$PROD_BKEI" > secrets/prod-bkei.yaml
+          echo "$PROD_BKED" > secrets/prod-bked.yaml
+          echo "$ROBOT_PROD" > secrets/robot-prod.txt
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3.0.0
