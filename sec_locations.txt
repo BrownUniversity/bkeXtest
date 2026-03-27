@@ -1,0 +1,57 @@
+GH Repo Secret: OIT-VO/OIT-VO SecVault: vo-automation/file
+Content gets put into GH Secret. This provided access to all other secrets for push and deploy. 
+
+name: VO_AUTOMATION_CONNECT_TOKEN
+https://secretsvault.apps.brown.edu/v1/vaults/ozxznermh2dq4gbh55do65oq7e/items/tsiwmcw7ah3urm3hh3jtixsqc4/files/yjjqzbevwg4lo7vxk6urx2i7da/content
+
+
+
+Dev Robot for Harbor Push
+ROBOT-DEV
+op://ozxznermh2dq4gbh55do65oq7e/npjh733tyzkabzayuav7acwaiy/credential
+
+QA Robot for Harbor Push
+ROBOT-QA
+op://ozxznermh2dq4gbh55do65oq7e/d3thgre3wspmoxld6mlazplnhy/credential
+
+DR Robot for Harbor Push
+ROBOT-DR
+op://ozxznermh2dq4gbh55do65oq7e/i7jtsx3ebey2oabehgft2os46e/credential
+
+Prod Robot for Harbor Push
+ROBOT-PROD
+op://ozxznermh2dq4gbh55do65oq7e/rdy73megsttd5bmfusa7ngeiqe/credential
+
+
+
+Dev Int kubeconfig
+DEV-BKEI
+op://ozxznermh2dq4gbh55do65oq7e/tsiwmcw7ah3urm3hh3jtixsqc4/dev-bkei.yaml
+
+Dev DMZ kubeconfig
+DEV-BKED
+op://ozxznermh2dq4gbh55do65oq7e/mhm3722zxoyp6tn5osntrcsptq/dev-bked.yaml
+
+QA Int kubeconfig
+QA-BKEI
+op://ozxznermh2dq4gbh55do65oq7e/x6xih2sdzstjcwna4xnhfwyqru/qa-bkei.yaml
+
+QA DMZ kubeconfig
+QA-BKED
+op://ozxznermh2dq4gbh55do65oq7e/fslejjfdbkkor2cpn7kfxa2hua/qa-bked.yaml
+
+DR Int kubeconfig
+DR-BKEI
+op://ozxznermh2dq4gbh55do65oq7e/li75xnokbtcydhq6cozgb4a6z4/dr-bkei.yaml
+
+DR DMZ kubeconfig
+DR-BKED
+op://ozxznermh2dq4gbh55do65oq7e/vblcf726cyjcai6mevaxmjg5ra/dr-bked.yaml
+
+Prod Int kubeconfig
+PROD-BKEI
+op://ozxznermh2dq4gbh55do65oq7e/p3prcq4ibc4ped7hhace22uv7a/prod-bkei.yaml
+
+Prod DMZ kubeconfig
+PROD-BKED
+op://ozxznermh2dq4gbh55do65oq7e/kmvnborkdzg2xrq5y5hayglrse/prod-bked.yaml
