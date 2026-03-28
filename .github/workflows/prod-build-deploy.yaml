@@ -2,10 +2,6 @@ name: PROD build and deploy of bkeXtest services
 on:
   release:
     types: [released]
-env:
-  PBKEI_KUBECONF: ${{ secrets.PBKEI_KUBECONF }}
-  PBKED_KUBECONF: ${{ secrets.PBKED_KUBECONF }}
-  PROD_XTEST_ROBOT: ${{ secrets.PROD_XTEST_ROBOT }}
     
 jobs:
   Building_and_Deploying_bkeXtest:
@@ -13,17 +9,24 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd
-      -
-        name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@111c56156bcc6918c056dbef52164cfa583dc549
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+      - 
+        name: Load secrets
+        id: op-load-secret
+        uses: 1password/load-secrets-action@92467eb28f72e8255933372f1e0707c567ce2259 #v4.0.0
         with:
-          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          export-env: true
+        env:
+          OP_CONNECT_HOST: https://secretsvault.apps.brown.edu
+          OP_CONNECT_TOKEN: ${{ secrets.VO_AUTOMATION_CONNECT_TOKEN }}
+          PROD_BKEI: op://ozxznermh2dq4gbh55do65oq7e/p3prcq4ibc4ped7hhace22uv7a/prod-bkei.yaml
+          PROD_BKED: op://ozxznermh2dq4gbh55do65oq7e/kmvnborkdzg2xrq5y5hayglrse/prod-bked.yaml
+          ROBOT_PROD: op://ozxznermh2dq4gbh55do65oq7e/rdy73megsttd5bmfusa7ngeiqe/credential
       -
         name: Get kubectl
-        uses: azure/setup-kubectl@901a10e89ea615cf61f57ac05cecdf23e7de06d8
+        uses: azure/setup-kubectl@901a10e89ea615cf61f57ac05cecdf23e7de06d8 # v3.2.0
         with:
-          version: v1.26.0
+          version: v1.32.0
       -
         name: pull kubeconfig
         run: |
@@ -31,12 +34,12 @@ jobs:
           touch secrets/prod-bkei.yaml
           touch secrets/prod-bked.yaml
           touch secrets/robot-prod.txt
-          echo "$PBKEI_KUBECONF" > secrets/prod-bkei.yaml
-          echo "$PBKED_KUBECONF" > secrets/prod-bked.yaml
-          echo "$PROD_XTEST_ROBOT" > secrets/robot-prod.txt
+          echo "$PROD_BKEI" > secrets/prod-bkei.yaml
+          echo "$PROD_BKED" > secrets/prod-bked.yaml
+          echo "$ROBOT_PROD" > secrets/robot-prod.txt
       -
         name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f
+        uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3.0.0
         with:
           install: true
       -

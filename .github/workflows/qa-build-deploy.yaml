@@ -3,10 +3,6 @@ on:
   push:
     branches:
       qa
-env:
-  QBKEI_KUBECONF: ${{ secrets.QBKEI_KUBECONF }}
-  QBKED_KUBECONF: ${{ secrets.QBKED_KUBECONF }}
-  QA_XTEST_ROBOT: ${{ secrets.QA_XTEST_ROBOT }}
 
 jobs:
   Building_and_Deploying_bkeXtest:
@@ -14,17 +10,24 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd
-      -
-        name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@111c56156bcc6918c056dbef52164cfa583dc549
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+      - 
+        name: Load secrets
+        id: op-load-secret
+        uses: 1password/load-secrets-action@92467eb28f72e8255933372f1e0707c567ce2259 #v4.0.0
         with:
-          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          export-env: true
+        env:
+          OP_CONNECT_HOST: https://secretsvault.cis-qas.brown.edu
+          OP_CONNECT_TOKEN: ${{ secrets.VO_AUTOMATION_CONNECT_TOKEN }}
+          QA_BKEI: op://ozxznermh2dq4gbh55do65oq7e/x6xih2sdzstjcwna4xnhfwyqru/qa-bkei.yaml
+          QA_BKED: op://ozxznermh2dq4gbh55do65oq7e/fslejjfdbkkor2cpn7kfxa2hua/qa-bked.yaml
+          ROBOT_QA: op://ozxznermh2dq4gbh55do65oq7e/d3thgre3wspmoxld6mlazplnhy/credential
       -
         name: Get kubectl
-        uses: azure/setup-kubectl@901a10e89ea615cf61f57ac05cecdf23e7de06d8
+        uses: azure/setup-kubectl@901a10e89ea615cf61f57ac05cecdf23e7de06d8 # v3.2.0
         with:
-          version: v1.30.0
+          version: v1.32.0
       -
         name: pull kubeconfig
         run: |
@@ -32,12 +35,12 @@ jobs:
           touch secrets/qa-bkei.yaml
           touch secrets/qa-bked.yaml
           touch secrets/robot-qa.txt
-          echo "$QBKEI_KUBECONF" > secrets/qa-bkei.yaml
-          echo "$QBKED_KUBECONF" > secrets/qa-bked.yaml
-          echo "$QA_XTEST_ROBOT" > secrets/robot-qa.txt
+          echo "$QA_BKEI" > secrets/qa-bkei.yaml
+          echo "$QA_BKED" > secrets/qa-bked.yaml
+          echo "$ROBOT_QA" > secrets/robot-qa.txt
       -
         name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f
+        uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3.0.0
         with:
           install: true
       -
