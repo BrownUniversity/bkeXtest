@@ -3,10 +3,6 @@ on:
   push:
     branches:
       dev
-env:
-  DBKEI_KUBECONF: ${{ secrets.DBKEI_KUBECONF }}
-  DBKED_KUBECONF: ${{ secrets.DBKED_KUBECONF }}
-  DEV_XTEST_ROBOT: ${{ secrets.DEV_XTEST_ROBOT }}
     
 jobs:
   Delete_and_Deploy_bkeXtest:
@@ -14,17 +10,25 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd
-      -
-        name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@111c56156bcc6918c056dbef52164cfa583dc549
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+      - 
+        name: Load secrets
+        id: op-load-secret
+        uses: 1password/load-secrets-action@92467eb28f72e8255933372f1e0707c567ce2259 #v4.0.0
         with:
-          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          export-env: true
+        env:
+          OP_CONNECT_HOST: https://secretsvault.cis-qas.brown.edu
+          OP_CONNECT_TOKEN: ${{ secrets.VO_AUTOMATION_CONNECT_TOKEN }}
+          DEV_BKEI: op://ozxznermh2dq4gbh55do65oq7e/tsiwmcw7ah3urm3hh3jtixsqc4/dev-bkei.yaml
+          DEV_BKED: op://ozxznermh2dq4gbh55do65oq7e/mhm3722zxoyp6tn5osntrcsptq/dev-bked.yaml
+          ROBOT_DEV: op://ozxznermh2dq4gbh55do65oq7e/npjh733tyzkabzayuav7acwaiy/credential
+      
       -
         name: Get kubectl
-        uses: azure/setup-kubectl@901a10e89ea615cf61f57ac05cecdf23e7de06d8
+        uses: azure/setup-kubectl@901a10e89ea615cf61f57ac05cecdf23e7de06d8 # v3.2.0
         with:
-          version: v1.30.0
+          version: v1.32.0
       -
         name: pull kubeconfig
         run: |
@@ -32,12 +36,12 @@ jobs:
           touch secrets/dev-bkei.yaml
           touch secrets/dev-bked.yaml
           touch secrets/robot-dev.txt
-          echo "$DBKEI_KUBECONF" > secrets/dev-bkei.yaml
-          echo "$DBKED_KUBECONF" > secrets/dev-bked.yaml
-          echo "$DEV_XTEST_ROBOT" > secrets/robot-dev.txt
+          echo "$DEV_BKEI" > secrets/dev-bkei.yaml
+          echo "$DEV_BKED" > secrets/dev-bked.yaml
+          echo "$ROBOT_DEV" > secrets/robot-dev.txt
       -
         name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f
+        uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3.0.0
         with:
           install: true
       -
