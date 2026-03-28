@@ -17,7 +17,7 @@ jobs:
         with:
           export-env: true
         env:
-          OP_CONNECT_HOST: secretsvault.apps.brown.edu
+          OP_CONNECT_HOST: https://secretsvault.apps.brown.edu
           OP_CONNECT_TOKEN: ${{ secrets.VO_AUTOMATION_CONNECT_TOKEN }}
           DR_BKEI: op://ozxznermh2dq4gbh55do65oq7e/li75xnokbtcydhq6cozgb4a6z4/dr-bkei.yaml
           DR_BKED: op://ozxznermh2dq4gbh55do65oq7e/vblcf726cyjcai6mevaxmjg5ra/dr-bked.yaml

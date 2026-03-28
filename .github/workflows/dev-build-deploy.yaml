@@ -18,7 +18,7 @@ jobs:
         with:
           export-env: true
         env:
-          OP_CONNECT_HOST: secretsvault.cis-qas.brown.edu
+          OP_CONNECT_HOST: https://secretsvault.cis-qas.brown.edu
           OP_CONNECT_TOKEN: ${{ secrets.VO_AUTOMATION_CONNECT_TOKEN }}
           DEV_BKEI: op://ozxznermh2dq4gbh55do65oq7e/tsiwmcw7ah3urm3hh3jtixsqc4/dev-bkei.yaml
           DEV_BKED: op://ozxznermh2dq4gbh55do65oq7e/mhm3722zxoyp6tn5osntrcsptq/dev-bked.yaml
