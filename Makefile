@@ -29,41 +29,41 @@ build:
 ## Docker Logins
 
 #dlogin.dev: @ dev docker login
-dlogin.dev:
+dlogin.dev: local-check
 	cat secrets/robot-dev.txt | docker login -u 'bke-bkextest+bkextest' --password-stdin harbor.cis-dev.brown.edu
 
 #dlogin.qa: @ qa docker login
-dlogin.qa: 
+dlogin.qa:  local-check
 	cat secrets/robot-qa.txt | docker login -u 'bke-bkextest+bkextest' --password-stdin harbor.cis-qas.brown.edu
 
 #dlogin.prod: @ prod docker login
-dlogin.prod: 
+dlogin.prod:  local-check
 	cat secrets/robot-prod.txt | docker login -u 'bke-bkextest+bkextest' --password-stdin harbor.services.brown.edu
 
 #dlogin.dr: @ dr docker login
-dlogin.dr: 
+dlogin.dr:  local-check
 	cat secrets/robot-dr.txt | docker login -u 'bke-bkextest+bkextest' --password-stdin harbordr.services.brown.edu
 
 ## Harbor push
 
 #push.dev: @ Push to DEV harbor
-push.dev: dlogin.dev
+push.dev: dlogin.dev 
 	docker push harbor.cis-dev.brown.edu/bkextest/bkextest
 
 #push.qa: @ Push to QA harbor
-push.qa: dlogin.qa
+push.qa: dlogin.qa 
 	docker push harbor.cis-qas.brown.edu/bkextest/bkextest
 
 #push.prod: @ Push to Prod harbor
-push.prod: dlogin.prod
+push.prod: dlogin.prod 
 	docker push harbor.services.brown.edu/bkextest/bkextest
 
 #push.dr: @ Psh to DR harbor
-push.dr: 	dlogin.dr
+push.dr: 	dlogin.dr 
 	docker push harbordr.services.brown.edu/bkextest/bkextest
 
 #push: @ Push bkextest images to repos
-push: push.qa push.prod push.dr
+push: push.qa push.prod push.dr 
 
 ## Deploys
 
@@ -73,37 +73,37 @@ deploy.dev-bkei:
 	echo "dbkeitest.virtorch.brown.edu"
 
 #deploy.dev-bked: @ dev-bked deploy
-deploy.dev-bked: 
+deploy.dev-bked: local-check
 	kubectl apply -k ./dev-bked --kubeconfig=secrets/dev-bked.yaml
 	echo "dbkedtest.virtorch.brown.edu"
 
 #deploy.qa-bked: @ qa-bked deploy
-deploy.qa-bked: 
+deploy.qa-bked: local-check
 	kubectl apply -k ./qa-bked --kubeconfig=secrets/qa-bked.yaml
 	echo "qbkedtest.virtorch.brown.edu"
 
 #deploy.qa-bkei: @ qa-bkei deploy
-deploy.qa-bkei: 
+deploy.qa-bkei: local-check
 	kubectl apply -k ./qa-bkei --kubeconfig=secrets/qa-bkei.yaml
 	echo "qbkeitest.virtorch.brown.edu"
 
 #deploy.bked: @ bked deploy
-deploy.bked: 
+deploy.bked: local-check
 	kubectl apply -k ./bked --kubeconfig=secrets/prod-bked.yaml
 	echo "bkedtest.virtorch.brown.edu"
 
 #deploy.bkei: @ bkei deploy
-deploy.bkei: 
+deploy.bkei: local-check
 	kubectl apply -k ./bkei --kubeconfig=secrets/prod-bkei.yaml
 	echo "bkeitest.virtorch.brown.edu"
 
 #deploy.bkeddr: @ bkeddr deploy
-deploy.bkeddr: 
+deploy.bkeddr: local-check
 	kubectl apply -k ./bkeddr --kubeconfig=secrets/dr-bked.yaml
 	echo "drbkedtest.virtorch.brown.edu"
 
 #deploy.bkeidr: @ bkeidr deploy
-deploy.bkeidr: 
+deploy.bkeidr: local-check
 	kubectl apply -k ./bkeidr --kubeconfig=secrets/dr-bkei.yaml
 	echo "drbkeitest.virtorch.brown.edu"
 
@@ -125,35 +125,35 @@ deploy: deploy.dev-bkei deploy.dev-bked deploy.qa-bked  deploy.qa-bkei deploy.bk
 ## Deletes
 
 #delete.dev-bkei: @ dev-bkei delete
-delete.dev-bkei: 
+delete.dev-bkei: local-check
 	-kubectl delete -k ./dev-bkei --kubeconfig=secrets/dev-bkei.yaml
 
 #delete.dev-bked: @ dev-bked delete
-delete.dev-bked: 
+delete.dev-bked: local-check
 	-kubectl delete -k ./dev-bked --kubeconfig=secrets/dev-bked.yaml
 
 #delete.qa-bked: @ qa-bked delete
-delete.qa-bked: 
+delete.qa-bked: local-check
 	-kubectl delete -k ./qa-bked --kubeconfig=secrets/qa-bked.yaml
 
 #delete.qa-bkei: @ qa-bkei delete
-delete.qa-bkei: 
+delete.qa-bkei: local-check
 	-kubectl delete -k ./qa-bkei --kubeconfig=secrets/qa-bkei.yaml
 
 #delete.bked: @ bked delete
-delete.bked: 
+delete.bked: local-check
 	-kubectl delete -k ./bked --kubeconfig=secrets/prod-bked.yaml
 
 #delete.bkei: @ bkei delete
-delete.bkei: 
+delete.bkei: local-check
 	-kubectl delete -k ./bkei --kubeconfig=secrets/prod-bkei.yaml
 
 #delete.bkeddr: @ bkeddr delete
-delete.bkeddr: 
+delete.bkeddr: local-check
 	-kubectl delete -k ./bkeddr --kubeconfig=secrets/dr-bked.yaml
 
 #delete.bkeidr: @ bkeidr delete
-delete.bkeidr: 
+delete.bkeidr: local-check
 	-kubectl delete -k ./bkeidr --kubeconfig=secrets/dr-bkei.yaml
 
 #delete.prod: @ Delete PROD
