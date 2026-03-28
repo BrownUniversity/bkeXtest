@@ -5,13 +5,13 @@ dead simple nginx app that serves from a file from the NFS storage
 ## Prerequisites
 * [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 * [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-* [blackbox](https://github.com/StackExchange/blackbox)
 * [docker](https://docs.docker.com/install/)
+* [1Password CLI](https://developer.1password.com/docs/cli/get-started/)
 
 ## Info
 
 This app tests Ingress, NFS and basic K8S api service. These are sufficient to
-ensure a cluster is working, but can't test all nodes (yet)
+ensure a cluster is working, but doesn't test all nodes.
 
 Domains:
 * bkeitest.virtorch.brown.edu - PROD INT
@@ -31,13 +31,16 @@ This set of commands will delete and existing deploy then build, push, and deplo
 a new set of instances.
 
 ```
+# make local-dev
 # make delete
 # make build
 # make push
 # make deploy
 # make test
 ```
-## Cleanup
 
-This app creates a new NFS PV each time is deploys. Due to the NFS provisioner's
-config old PVs might need to be deleted manually.
+### Local Dev
+Local dev is possible by using 1Password to retreive secrets. See [sec_locations.exe](./seclocations.txt)
+for details on the relevent secrets. GH Action deployment uses the OIT 
+SecretsVault service. 
+
