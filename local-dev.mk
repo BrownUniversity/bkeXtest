@@ -1,5 +1,5 @@
 #local-check: @ Using the LOCALDEV=y var will pull secrets to local files.
-LOCALDEV ?=
+LOCALDEV ?= no
 ifeq ($(LOCALDEV), $(filter $(LOCALDEV), y Y yes Yes True true))
 local-check:
 	mkdir secrets
