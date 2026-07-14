@@ -55,3 +55,15 @@ op://ozxznermh2dq4gbh55do65oq7e/p3prcq4ibc4ped7hhace22uv7a/prod-bkei.yaml
 Prod DMZ kubeconfig
 PROD-BKED
 op://ozxznermh2dq4gbh55do65oq7e/kmvnborkdzg2xrq5y5hayglrse/prod-bked.yaml
+
+VOUtil2 kubeconfig
+VOUtil2
+op://ozxznermh2dq4gbh55do65oq7e/76f7tmosycmk6uugpmiom6qrru/voutil2.yaml
+
+QA VOUtil2 kubeconfig
+QA-VOUtil2
+op://ozxznermh2dq4gbh55do65oq7e/76cr3vgu23zupmx4nlqtyvwc6y/qa-voutil2.yaml
+
+DR VOUTIL2 kubecongfig
+DR-VOUTIL2
+op://ozxznermh2dq4gbh55do65oq7e/22oeitbsmcfmjxz2mx453mbf7e/dr-voutil2.yaml

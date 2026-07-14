@@ -6,7 +6,7 @@ metadata:
 spec:
   secretName: bkeidrtest-tls
   issuerRef:
-    name: bke-ci-eab
+    name: bke-ci-ucc
     kind: ClusterIssuer
   commonName: drbkeitest.virtorch.brown.edu
   dnsNames:
