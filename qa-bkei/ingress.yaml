@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: bkextest
   annotations:
-    cert-manager.io/cluster-issuer: "bke-ci-eab"
+    cert-manager.io/cluster-issuer: "bke-ci-ucc"
 
 spec:
   ingressClassName: nginx
