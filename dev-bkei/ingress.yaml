@@ -3,10 +3,10 @@ kind: Ingress
 metadata:
   name: bkextest
   annotations:   
-    cert-manager.io/cluster-issuer: "bke-ci-ecc-tr"
+    cert-manager.io/cluster-issuer: "bke-ci-ucc"
     
 spec:
-  ingressClassName: nginx
+  ingressClassName: traefik
   tls:
   - hosts:
     - dbkeitest.virtorch.brown.edu
