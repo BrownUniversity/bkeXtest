@@ -6,7 +6,6 @@ metadata:
     cert-manager.io/cluster-issuer: "bke-ci-ucc"
 
 spec:
-  ingressClassName: nginx
   tls:
   - hosts:
     - dbkedtest.virtorch.brown.edu
